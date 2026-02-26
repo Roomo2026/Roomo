@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -117,7 +118,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: Step2Widget.routeName,
           path: Step2Widget.routePath,
-          builder: (context, params) => Step2Widget(),
+          asyncParams: {
+            'beforeImsge':
+                getDoc(['users', 'projects'], ProjectsRecord.fromSnapshot),
+          },
+          builder: (context, params) => Step2Widget(
+            beforeImsge: params.getParam(
+              'beforeImsge',
+              ParamType.Document,
+            ),
+          ),
         ),
         FFRoute(
           name: Step3Widget.routeName,

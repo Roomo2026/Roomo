@@ -355,15 +355,15 @@ class _Step3WidgetState extends State<Step3Widget> {
                                 decoration: BoxDecoration(
                                   color: _model.selectedRoomType ==
                                           'Living room'
-                                      ? Color(0xFF221B43)
+                                      ? FlutterFlowTheme.of(context).selectedC
                                       : FlutterFlowTheme.of(context).alternate,
                                   borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
-                                    color:
-                                        _model.selectedRoomType == 'Living room'
-                                            ? Color(0xFF221B43)
-                                            : FlutterFlowTheme.of(context)
-                                                .alternate,
+                                    color: _model.selectedRoomType ==
+                                            'Living room'
+                                        ? FlutterFlowTheme.of(context).selectedC
+                                        : FlutterFlowTheme.of(context)
+                                            .alternate,
                                     width: 1.0,
                                   ),
                                 ),
@@ -438,12 +438,12 @@ class _Step3WidgetState extends State<Step3Widget> {
                                 height: 50.0,
                                 decoration: BoxDecoration(
                                   color: _model.selectedRoomType == 'Bedroom'
-                                      ? Color(0xFF221B43)
+                                      ? FlutterFlowTheme.of(context).selectedC
                                       : FlutterFlowTheme.of(context).alternate,
                                   borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
                                     color: _model.selectedRoomType == 'Bedroom'
-                                        ? Color(0xFF221B43)
+                                        ? FlutterFlowTheme.of(context).selectedC
                                         : FlutterFlowTheme.of(context)
                                             .alternate,
                                     width: 1.0,
@@ -519,12 +519,12 @@ class _Step3WidgetState extends State<Step3Widget> {
                                 height: 50.0,
                                 decoration: BoxDecoration(
                                   color: _model.selectedRoomType == 'Kitchen'
-                                      ? Color(0xFF221B43)
+                                      ? FlutterFlowTheme.of(context).selectedC
                                       : FlutterFlowTheme.of(context).alternate,
                                   borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
                                     color: _model.selectedRoomType == 'Kitchen'
-                                        ? Color(0xFF221B43)
+                                        ? FlutterFlowTheme.of(context).selectedC
                                         : FlutterFlowTheme.of(context)
                                             .alternate,
                                     width: 1.0,
@@ -600,12 +600,12 @@ class _Step3WidgetState extends State<Step3Widget> {
                                 height: 50.0,
                                 decoration: BoxDecoration(
                                   color: _model.selectedRoomType == 'Bathroom'
-                                      ? Color(0xFF221B43)
+                                      ? FlutterFlowTheme.of(context).selectedC
                                       : FlutterFlowTheme.of(context).alternate,
                                   borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
                                     color: _model.selectedRoomType == 'Bathroom'
-                                        ? Color(0xFF221B43)
+                                        ? FlutterFlowTheme.of(context).selectedC
                                         : FlutterFlowTheme.of(context)
                                             .alternate,
                                     width: 1.0,
@@ -669,6 +669,45 @@ class _Step3WidgetState extends State<Step3Widget> {
                     ),
                   ],
                 ),
+              ),
+              StreamBuilder<List<ProjectsRecord>>(
+                stream: queryProjectsRecord(
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  List<ProjectsRecord> imageProjectsRecordList = snapshot.data!;
+                  // Return an empty Container when the item does not exist.
+                  if (snapshot.data!.isEmpty) {
+                    return Container();
+                  }
+                  final imageProjectsRecord = imageProjectsRecordList.isNotEmpty
+                      ? imageProjectsRecordList.first
+                      : null;
+
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      imageProjectsRecord!.inputImageUrl,
+                      width: 200.0,
+                      height: 200.0,
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
               ),
             ],
           ),

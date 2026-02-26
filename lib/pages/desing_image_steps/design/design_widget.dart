@@ -97,7 +97,18 @@ class _DesignWidgetState extends State<DesignWidget> {
                     _model.createdProject?.reference;
                 safeSetState(() {});
 
-                context.pushNamed(Step2Widget.routeName);
+                context.pushNamed(
+                  Step2Widget.routeName,
+                  queryParameters: {
+                    'beforeImsge': serializeParam(
+                      _model.createdProject,
+                      ParamType.Document,
+                    ),
+                  }.withoutNulls,
+                  extra: <String, dynamic>{
+                    'beforeImsge': _model.createdProject,
+                  },
+                );
               }
 
               safeSetState(() {});
@@ -380,12 +391,12 @@ class _DesignWidgetState extends State<DesignWidget> {
                             height: 50.0,
                             decoration: BoxDecoration(
                               color: _model.selectedMode == 'full_redesign'
-                                  ? Color(0xFF221B43)
+                                  ? FlutterFlowTheme.of(context).selectedC
                                   : FlutterFlowTheme.of(context).alternate,
                               borderRadius: BorderRadius.circular(8.0),
                               border: Border.all(
                                 color: _model.selectedMode == 'full_redesign'
-                                    ? Color(0xFF221B43)
+                                    ? FlutterFlowTheme.of(context).selectedC
                                     : FlutterFlowTheme.of(context).alternate,
                                 width: 1.0,
                               ),
@@ -460,12 +471,12 @@ class _DesignWidgetState extends State<DesignWidget> {
                             height: 50.0,
                             decoration: BoxDecoration(
                               color: _model.selectedMode == 'refresh'
-                                  ? Color(0xFF221B43)
+                                  ? FlutterFlowTheme.of(context).selectedC
                                   : FlutterFlowTheme.of(context).alternate,
                               borderRadius: BorderRadius.circular(8.0),
                               border: Border.all(
                                 color: _model.selectedMode == 'refresh'
-                                    ? Color(0xFF221B43)
+                                    ? FlutterFlowTheme.of(context).selectedC
                                     : FlutterFlowTheme.of(context).alternate,
                                 width: 1.0,
                               ),
@@ -540,12 +551,12 @@ class _DesignWidgetState extends State<DesignWidget> {
                             height: 50.0,
                             decoration: BoxDecoration(
                               color: _model.selectedMode == 'Style only'
-                                  ? Color(0xFF221B43)
+                                  ? FlutterFlowTheme.of(context).selectedC
                                   : FlutterFlowTheme.of(context).alternate,
                               borderRadius: BorderRadius.circular(8.0),
                               border: Border.all(
                                 color: _model.selectedMode == 'Style only'
-                                    ? Color(0xFF221B43)
+                                    ? FlutterFlowTheme.of(context).selectedC
                                     : FlutterFlowTheme.of(context).alternate,
                                 width: 1.0,
                               ),

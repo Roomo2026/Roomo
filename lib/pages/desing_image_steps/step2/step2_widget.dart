@@ -11,7 +11,12 @@ import 'step2_model.dart';
 export 'step2_model.dart';
 
 class Step2Widget extends StatefulWidget {
-  const Step2Widget({super.key});
+  const Step2Widget({
+    super.key,
+    required this.beforeImsge,
+  });
+
+  final ProjectsRecord? beforeImsge;
 
   static String routeName = 'step2';
   static String routePath = '/step2';
@@ -68,9 +73,18 @@ class _Step2WidgetState extends State<Step2Widget> {
                 ),
               );
             } else {
-              await FFAppState()
-                  .currentProjectRef!
-                  .update(createProjectsRecordData());
+              await FFAppState().currentProjectRef!.update({
+                ...createProjectsRecordData(
+                  step: 2,
+                  status: 'draft',
+                  inputImageUrl: _model.selectedImageUrl,
+                ),
+                ...mapToFirestore(
+                  {
+                    'updatedAt': FieldValue.serverTimestamp(),
+                  },
+                ),
+              });
 
               context.pushNamed(Step3Widget.routeName);
             }

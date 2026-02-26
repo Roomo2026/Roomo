@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:styled_divider/styled_divider.dart';
@@ -45,7 +46,7 @@ class _ResultWidgetState extends State<ResultWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: Color(0xFF221B43),
+          backgroundColor: FlutterFlowTheme.of(context).selectedC,
           automaticallyImplyLeading: false,
           title: Text(
             'Result',
@@ -93,14 +94,48 @@ class _ResultWidgetState extends State<ResultWidget> {
                           ),
                           child: Stack(
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/767/600',
-                                  width: 200.0,
-                                  height: 385.07,
-                                  fit: BoxFit.cover,
+                              StreamBuilder<List<ProjectsRecord>>(
+                                stream: queryProjectsRecord(
+                                  singleRecord: true,
                                 ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<ProjectsRecord> imageProjectsRecordList =
+                                      snapshot.data!;
+                                  // Return an empty Container when the item does not exist.
+                                  if (snapshot.data!.isEmpty) {
+                                    return Container();
+                                  }
+                                  final imageProjectsRecord =
+                                      imageProjectsRecordList.isNotEmpty
+                                          ? imageProjectsRecordList.first
+                                          : null;
+
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      imageProjectsRecord!.inputImageUrl,
+                                      width: 200.0,
+                                      height: 385.07,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                },
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -217,7 +252,8 @@ class _ResultWidgetState extends State<ResultWidget> {
                                           width: 60.0,
                                           height: 30.0,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF221B43),
+                                            color: FlutterFlowTheme.of(context)
+                                                .selectedC,
                                             boxShadow: [
                                               BoxShadow(
                                                 blurRadius: 4.0,
