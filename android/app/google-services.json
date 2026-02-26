@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "56638965498",
+    "project_id": "rai-chatbot-project",
+    "storage_bucket": "rai-chatbot-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56638965498:android:62b719f93cd6be750f2b43",
+        "android_client_info": {
+          "package_name": "com.mycompany.imagegeneration"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWRbJAob2F1Hp6EBD7jtEl1tCCRoaZF9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
